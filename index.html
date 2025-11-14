@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Class | Creamos Experiencias Inolvidables</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carga de Animate On Scroll (AOS) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Carga de Google Fonts (Playfair Display para títulos, Inter para cuerpo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Configuración personalizada de Tailwind CSS (colores y fuentes) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'gold': '#D4AF37',
+                        'light-grey': '#F7F7F7',
+                        'dark-text': '#111827', // Negro elegante
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Estilos personalizados */
+        body {
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ccircle cx='6' cy='6' r='2' fill='%23D4AF37'/%3E%3C/svg%3E") 6 6, auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* Scroll fluido */
+        }
+        
+        /* Opcional: Estilo de scrollbar sutil */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF3744;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f7f7f7;
+        }
+
+        /* Estilo para el hover de las tarjetas de servicio */
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+        }
+        
+        /* Estilo para texto de lujo con gradiente dorado */
+        .luxury-gradient-text {
+            background: linear-gradient(45deg, #D4AF37, #E9C96E, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        /* Oculta el scroll del cuerpo cuando el menú móvil está abierto para evitar el desplazamiento de fondo */
+        .no-scroll {
+            overflow: hidden;
+        }
+
+        /* Estilos del Carrusel de Testimonios */
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-slide {
+            flex: 0 0 100%; /* Cada slide ocupa el 100% del contenedor */
+            min-width: 100%; /* Asegura que no se deforme */
+        }
+
+</style>
+</head>
+<body class="font-sans text-dark-text bg-white">
+
+<!-- Loader Inicial (Responsive) -->
+<div id="loader" 
+     class="fixed inset-0 w-screen h-screen bg-white z-[9999] flex items-center justify-center transition-opacity duration-700">
+    <h1 class="font-display text-5xl sm:text-6xl md:text-7xl luxury-gradient-text animate-pulse">
+        BC
+    </h1>
+</div>
+    <!-- 1. Navegación Fija (Navbar) -->
+    <header class="sticky top-0 z-40 bg-white border-b border-light-grey shadow-sm">
+        <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo Elegante -->
+            <a href="#" class="font-display text-2xl font-semibold tracking-widest text-dark-text">
+                <span class="text-gold">BUSINESS</span> CLASS
+            </a>
+
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex space-x-8 text-sm font-medium tracking-wide">
+                <a href="#about" class="hover:text-gold transition duration-200">Sobre Nosotros</a>
+                <a href="#process" class="hover:text-gold transition duration-200">Proceso</a>
+                <a href="#services" class="hover:text-gold transition duration-200">Servicios</a>
+                <a href="#portfolio" class="hover:text-gold transition duration-200">Portafolio</a>
+                <a href="#testimonials" class="hover:text-gold transition duration-200">Testimonios</a>
+                <a href="#contact" class="hover:text-gold transition duration-200">Contacto</a>
+            </div>
+
+            <!-- Botón de Menú Móvil (Hamburguesa/X) -->
+            <button id="menu-button" class="md:hidden p-2 text-dark-text hover:text-gold transition duration-200 z-50">
+                <!-- Icono de Hamburguesa (default) -->
+                <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <!-- Icono de Cierre (oculto) -->
+                <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </nav>
+    </header>
+
+    <!-- 2. Menú Sidebar Móvil (Barra Desplegable) -->
+    <div id="mobile-sidebar" class="fixed top-0 right-0 w-64 h-full bg-white shadow-2xl z-40 transform translate-x-full transition-transform duration-500 md:hidden flex flex-col justify-start pt-20 border-l-4 border-gold">
+        <div class="flex flex-col space-y-4 px-6 text-base font-medium tracking-wide">
+            <a href="#about" class="py-3 text-dark-text hover:text-gold border-b border-light-grey transition duration-200 sidebar-link">Sobre Nosotros</a>
+            <a href="#process" class="py-3 text-dark-text hover:text-gold border-b border-light-grey transition duration-200 sidebar-link">Nuestro Proceso</a>
+            <a href="#services" class="py-3 text-dark-text hover:text-gold border-b border-light-grey transition duration-200 sidebar-link">Servicios</a>
+            <a href="#portfolio" class="py-3 text-dark-text hover:text-gold border-b border-light-grey transition duration-200 sidebar-link">Portafolio</a>
+            <a href="#testimonials" class="py-3 text-dark-text hover:text-gold border-b border-light-grey transition duration-200 sidebar-link">Testimonios</a>
+            <a href="#contact" class="py-3 text-dark-text hover:text-gold transition duration-200 sidebar-link">Contacto</a>
+        </div>
+        
+        <!-- CTA en el menú móvil -->
+        <div class="mt-auto p-6">
+            <a href="https://wa.me/5492235476051" class="inline-block w-full text-center bg-gold text-white font-medium py-3 rounded-lg hover:bg-dark-text transition duration-300">
+                Contactar Ahora
+            </a>
+        </div>
+    </div>
+    <!-- Overlay Oscuro para el Menú Móvil -->
+    <div id="menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 opacity-0 hidden transition-opacity duration-500 md:hidden"></div>
+
+    <main>
+       <!-- 3. Hero Section (Responsive) -->
+<section id="hero" class="h-auto md:h-[95vh] flex items-center relative overflow-hidden bg-white">
+
+    <!-- Imagen de fondo -->
+    <div class="absolute inset-0 opacity-20 bg-center bg-cover"
+         style="background-image: url('URL-DE-TU-IMAGEN');"></div>
+
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 py-16 md:py-0 grid md:grid-cols-2 gap-12 items-center">
+
+        <!-- IZQUIERDA: TEXTO DEL HERO -->
+        <div class="text-left" data-aos="fade-right" data-aos-duration="1200">
+            <p class="font-display text-lg md:text-2xl mb-4 text-dark-text tracking-widest opacity-90">
+                BUSINESS CLASS | Eventos de Alto Nivel
+            </p>
+
+            <h1 class="font-display text-5xl md:text-7xl font-light leading-tight text-dark-text">
+                Creamos <span class="luxury-gradient-text font-medium">experiencias</span> inolvidables.
+            </h1>
+
+            <p class="mt-6 text-lg md:text-xl text-dark-text/70">
+                Diseño y ejecución para el evento que siempre soñaste.
+            </p>
+        </div>
+
+        <!-- DERECHA: FORM CARD -->
+        <div id="contact-card" class="backdrop-blur-xl bg-white/60 border border-gold/40 rounded-2xl shadow-2xl p-8 md:p-10"
+             data-aos="fade-left" data-aos-duration="1200">
+
+            <!-- FORMULARIO -->
+            <form id="contact-form" class="space-y-5">
+
+                <!-- Nombre y apellido -->
+                <div>
+                    <label class="text-sm font-medium text-dark-text">Nombre y apellido</label>
+                    <input type="text" required
+                        class="w-full mt-1 border border-gold/40 bg-white/50 rounded-xl px-4 py-3 focus:ring-2 focus:ring-gold focus:outline-none">
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label class="text-sm font-medium text-dark-text">Email</label>
+                    <input type="email" required
+                        class="w-full mt-1 border border-gold/40 bg-white/50 rounded-xl px-4 py-3 focus:ring-2 focus:ring-gold focus:outline-none">
+                </div>
+
+                <!-- Teléfono -->
+                <div>
+                    <label class="text-sm font-medium text-dark-text">Teléfono</label>
+                    <input type="text" required
+                        class="w-full mt-1 border border-gold/40 bg-white/50 rounded-xl px-4 py-3 focus:ring-2 focus:ring-gold focus:outline-none">
+                </div>
+
+                <!-- Cantidad de invitados -->
+                <div>
+                    <label class="text-sm font-medium text-dark-text">Cantidad de invitados</label>
+                    <input type="number" required min="1"
+                        class="w-full mt-1 border border-gold/40 bg-white/50 rounded-xl px-4 py-3 focus:ring-2 focus:ring-gold focus:outline-none">
+                </div>
+
+                <!-- Tipo de evento -->
+                <div>
+                    <label class="text-sm font-medium text-dark-text">Tipo de evento</label>
+                    <select required
+                        class="w-full mt-1 border border-gold/40 bg-white/50 rounded-xl px-4 py-3 focus:ring-2 focus:ring-gold focus:outline-none">
+                        <option value="">Seleccionar...</option>
+                        <option>Boda</option>
+                        <option>Cumpleaños</option>
+                        <option>Evento corporativo</option>
+                        <option>Fiesta privada</option>
+                        <option>Otro</option>
+                    </select>
+                </div>
+
+                <!-- BOTÓN -->
+                <button type="submit"
+                    class="w-full bg-gold text-white font-semibold py-3 rounded-xl text-lg tracking-wide shadow-lg hover:bg-dark-text transition duration-300">
+                    Enviar consulta
+                </button>
+            </form>
+
+            <!-- MENSAJE DE ÉXITO (oculto al inicio) -->
+            <div id="success-message" class="hidden text-center py-10">
+                <h3 class="text-2xl font-display font-light text-dark-text">
+                    ¡Gracias! Tu mensaje se ha enviado con éxito.
+                </h3>
+                <p class="mt-3 text-dark-text/70">
+                    Muy pronto nos estaremos poniendo en contacto contigo para responder tu consulta.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- SCRIPT PARA REEMPLAZAR EL FORM POR EL MENSAJE -->
+<script>
+document.getElementById("contact-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    document.getElementById("contact-form").classList.add("hidden");
+    document.getElementById("success-message").classList.remove("hidden");
+});
+</script>
+
+
+        <!-- 4. Sobre Nosotros (Responsive) -->
+        <section id="about" class="py-24 md:py-40 bg-white max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Columna de Imagen (Móvil: primero, Desktop: segundo) -->
+                <div class="aspect-video bg-light-grey rounded-lg shadow-2xl overflow-hidden order-2 md:order-1" data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="300">
+                    <!-- Imagen de Boda/Lujo -->
+                    <img src="boda.jpg" alt="Imagen de una pareja elegante en una boda de lujo" class="w-full h-full object-cover opacity-90 transition duration-500 hover:scale-105">
+                </div>
+                <!-- Columna de Texto -->
+                <div class="order-1 md:order-2" data-aos="fade-left" data-aos-duration="1200">
+                    <span class="text-gold font-medium tracking-widest text-sm uppercase">Nuestra Promesa</span>
+                    <h2 class="font-display text-3xl md:text-5xl mt-3 mb-6 font-light leading-snug">
+                        El Arte de la <span class="text-gold">Planificación Impecable</span>.
+                    </h2>
+                    <p class="text-base text-dark-text/80 mb-6">
+                        Somos arquitectos de momentos. Desde la conceptualización hasta la última copa, nuestro equipo de élite garantiza una ejecución sin fisuras. Nos especializamos en superar lo ordinario, ofreciendo soluciones de lujo que reflejan la visión y el prestigio de nuestros clientes.
+                    </p>
+                    <!-- Frase Destacada -->
+                    <p class="font-display text-xl italic text-gold mt-8 border-l-4 border-gold pl-4">
+                        "Cada evento es una obra de arte, diseñado para trascender."
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 5. Proceso de Diseño (Responsive) -->
+        <section id="process" class="py-24 md:py-36 bg-light-grey">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+                <span class="text-gold font-medium tracking-widest text-sm uppercase" data-aos="fade-up">Metodología Business Class</span>
+                <h2 class="font-display text-3xl md:text-5xl mt-3 mb-12 font-light" data-aos="fade-up" data-aos-delay="100">
+                    Nuestros <span class="text-gold">Tres Pilares</span> del Lujo.
+                </h2>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Pilar 1: Conceptualización -->
+                    <div class="p-4 rounded-lg" data-aos="fade-up" data-aos-delay="200">
+                        <svg class="w-12 h-12 mx-auto mb-3 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                        <h3 class="font-display text-xl font-medium mb-2">1. La Visión Única</h3>
+                        <p class="text-dark-text/70 text-sm">Transformamos su idea en un concepto tangible y exclusivo, definiendo la estética.</p>
+                    </div>
+
+                    <!-- Pilar 2: Ejecución -->
+                    <div class="p-4 rounded-lg" data-aos="fade-up" data-aos-delay="400">
+                        <svg class="w-12 h-12 mx-auto mb-3 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 002.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <h3 class="font-display text-xl font-medium mb-2">2. Ejecución Maestra</h3>
+                        <p class="text-dark-text/70 text-sm">Coordinamos a proveedores de élite y gestionamos la logística con precisión de reloj.</p>
+                    </div>
+
+                    <!-- Pilar 3: La Experiencia -->
+                    <div class="p-4 rounded-lg" data-aos="fade-up" data-aos-delay="600">
+                        <svg class="w-12 h-12 mx-auto mb-3 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.002 6.002L21 11l-5.998 1.998L13 21l-1.998-5.998L3 13l5.998-1.998L11 3z"></path></svg>
+                        <h3 class="font-display text-xl font-medium mb-2">3. El Momento Sublime</h3>
+                        <p class="text-dark-text/70 text-sm">Nos enfocamos en la experiencia del invitado, creando atmósferas envolventes y momentos de magia.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 6. Servicios (Responsive) -->
+        <section id="services" class="py-24 md:py-36 bg-white">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+                <span class="text-gold font-medium tracking-widest text-sm uppercase" data-aos="fade-up">Nuestros Servicios Exclusivos</span>
+                <h2 class="font-display text-3xl md:text-5xl mt-3 mb-12 font-light" data-aos="fade-up" data-aos-delay="100">
+                    Diseñamos la perfección para cada ocasión.
+                </h2>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Tarjeta de Servicio 1 (Wedding focus) -->
+                    <div class="service-card bg-light-grey p-6 rounded-lg shadow-lg" data-aos="zoom-in-up" data-aos-delay="200">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 12a3 3 0 100-6 3 3 0 000 6z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 12a3 3 0 013 3v3a3 3 0 01-3 3H9a3 3 0 01-3-3v-3a3 3 0 013-3h3z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 15l-1.5 1.5"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 15l1.5 1.5"></path></svg>
+                        <h3 class="font-display text-lg font-medium mb-2">Bodas de Destino & Lujo</h3>
+                        <p class="text-dark-text/70 text-sm">Diseño completo de bodas, desde locaciones exclusivas hasta la coordinación de la ceremonia.</p>
+                    </div>
+
+                    <!-- Tarjeta de Servicio 2 -->
+                    <div class="service-card bg-light-grey p-6 rounded-lg shadow-lg" data-aos="zoom-in-up" data-aos-delay="300">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 19.5A2.5 2.5 0 016.5 17H20V6H4v13.5zM10 9h2m-2 4h2m-2 4h2m6-8h-2m2 4h-2"></path></svg>
+                        <h3 class="font-display text-lg font-medium mb-2">Eventos Corporativos VIP</h3>
+                        <p class="text-dark-text/70 text-sm">Lanzamientos de producto, cenas de gala y congresos con un enfoque en el branding sofisticado.</p>
+                    </div>
+
+                    <!-- Tarjeta de Servicio 3 -->
+                    <div class="service-card bg-light-grey p-6 rounded-lg shadow-lg" data-aos="zoom-in-up" data-aos-delay="400">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 21.5c4.7 0 8.5-4 8.5-8.8 0-3.5-2-6.5-5.5-7.7C12 4.4 12 2 12 2s0 2.4-3 3C6 6.2 4 9.2 4 12.7c0 4.7 3.8 8.8 8.5 8.8z"></path></svg>
+                        <h3 class="font-display text-lg font-medium mb-2">Diseño Floral & Ambientación</h3>
+                        <p class="text-dark-text/70 text-sm">Dirección artística completa, selección de mobiliario y creación de ambientes cinematográficos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+ <section id="portfolio" class="py-24 md:py-36 bg-light-grey">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        
+        <div class="text-center mb-12">
+            <span class="text-gold font-medium tracking-widest text-sm uppercase" data-aos="fade-up">
+                Momentos Capturados
+            </span>
+            <h2 class="font-display text-3xl md:text-5xl mt-3 font-light" data-aos="fade-up" data-aos-delay="100">
+                Nuestra <span class="text-gold">Galería</span> de Éxito.
+            </h2>
+        </div>
+
+        <div class="flex space-x-4 overflow-x-auto gallery-scroll py-4 scroll-smooth snap-x snap-mandatory pr-6">
+
+            <!-- ITEM -->
+            <div class="gallery-item snap-center min-w-[80%] md:min-w-[40%] aspect-[4/3] rounded-lg overflow-hidden shadow-xl cursor-pointer relative">
+                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1470&q=80"
+                    class="w-full h-full object-cover">
+                
+                <!-- GRADIENT -->
+                <div class="absolute inset-0 bg-gradient-to-l from-black/60 to-transparent"></div>
+
+                <!-- LOGO -->
+                <img src="logo.png"
+                     class="absolute bottom-3 right-3 w-16 h-auto opacity-90 pointer-events-none">
+            </div>
+
+            <!-- ITEM -->
+            <div class="gallery-item snap-center min-w-[50%] aspect-square rounded-lg overflow-hidden shadow-xl cursor-pointer relative">
+                <img src="11.jpg"
+                    class="w-full h-full object-cover">
+                
+                <div class="absolute inset-0 bg-gradient-to-l from-black/60 to-transparent"></div>
+
+                <img src="logo.png" class="absolute bottom-3 right-3 w-16 h-auto opacity-90 pointer-events-none">
+            </div>
+
+            <!-- ITEM -->
+            <div class="gallery-item snap-center min-w-[50%] aspect-square rounded-lg overflow-hidden shadow-xl cursor-pointer relative">
+                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1470&q=80"
+                    class="w-full h-full object-cover">
+
+                <div class="absolute inset-0 bg-gradient-to-l from-black/60 to-transparent"></div>
+
+                <img src="logo.png" class="absolute bottom-3 right-3 w-16 h-auto opacity-90 pointer-events-none">
+            </div>
+
+            <!-- ITEM -->
+            <div class="gallery-item snap-center min-w-[50%] aspect-[4/3] rounded-lg overflow-hidden shadow-xl cursor-pointer relative">
+                <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1469&q=80"
+                    class="w-full h-full object-cover">
+
+                <div class="absolute inset-0 bg-gradient-to-l from-black/60 to-transparent"></div>
+
+                <img src="logo.png" class="absolute bottom-3 right-3 w-16 h-auto opacity-90 pointer-events-none">
+            </div>
+
+            <!-- ITEM -->
+            <div class="gallery-item snap-center min-w-[50%] aspect-square rounded-lg overflow-hidden shadow-xl cursor-pointer relative">
+                <img src="12.jpg"
+                    class="w-full h-full object-cover">
+
+                <div class="absolute inset-0 bg-gradient-to-l from-black/60 to-transparent"></div>
+
+                <img src="logo.png" class="absolute bottom-3 right-3 w-16 h-auto opacity-90 pointer-events-none">
+            </div>
+
+            <!-- ITEM -->
+            <div class="gallery-item snap-center min-w-[90%] md:min-w-[50%] aspect-[16/9] rounded-lg overflow-hidden shadow-xl cursor-pointer relative">
+                <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1470&q=80"
+                    class="w-full h-full object-cover">
+
+                <div class="absolute inset-0 bg-gradient-to-l from-black/60 to-transparent"></div>
+
+                <img src="logo.png" class="absolute bottom-3 right-3 w-16 h-auto opacity-90 pointer-events-none">
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50">
+    <img id="lightbox-img" class="max-w-[90%] max-h-[90%] rounded-lg shadow-xl">
+</div>
+
+
+        <!-- 8. Testimonios (Carrusel Automático) -->
+        <section id="testimonials" class="py-24 md:py-36 bg-white">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+                <span class="text-gold font-medium tracking-widest text-sm uppercase" data-aos="fade-up">Voces de Nuestros Clientes</span>
+                <h2 class="font-display text-3xl md:text-5xl mt-3 mb-12 font-light" data-aos="fade-up" data-aos-delay="100">
+                    Historias de <span class="text-gold">Éxito Total</span>.
+                </h2>
+
+                <!-- Contenedor del Carrusel -->
+                <div class="relative overflow-hidden rounded-xl shadow-2xl border border-light-grey" data-aos="zoom-in" data-aos-delay="200">
+                    <div id="testimonial-track" class="carousel-track">
+                        
+                        <!-- Testimonio 1 -->
+                        <div class="carousel-slide p-10 bg-light-grey/50">
+                            <svg class="w-8 h-8 text-gold mx-auto mb-4 opacity-70" fill="currentColor" viewBox="0 0 24 24"><path d="M13.25 21.5c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9zm0-16c-3.86 0-7 3.14-7 7s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zM11 15h2V9h-2v6zm4 0h2V9h-2v6z"/></svg>
+                            <p class="font-display text-2xl md:text-3xl italic text-dark-text/90 leading-relaxed mb-6">
+                                "La planificación superó todas las expectativas. Fue la boda de mis sueños sin ningún estrés. El nivel de detalle y elegancia fue Business Class en todo sentido."
+                            </p>
+                            <div class="text-center">
+                                <p class="font-medium text-lg text-gold">- Alejandra V.</p>
+                                <p class="text-sm text-dark-text/70">Cliente de Boda de Destino, 2024</p>
+                            </div>
+                        </div>
+
+                        <!-- Testimonio 2 -->
+                        <div class="carousel-slide p-10 bg-light-grey/50">
+                            <svg class="w-8 h-8 text-gold mx-auto mb-4 opacity-70" fill="currentColor" viewBox="0 0 24 24"><path d="M13.25 21.5c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9zm0-16c-3.86 0-7 3.14-7 7s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zM11 15h2V9h-2v6zm4 0h2V9h-2v6z"/></svg>
+                            <p class="font-display text-2xl md:text-3xl italic text-dark-text/90 leading-relaxed mb-6">
+                                "El lanzamiento de nuestro producto requería una imagen impecable. Business Class entregó un evento corporativo que elevó nuestra marca a un nivel premium. Logística perfecta."
+                            </p>
+                            <div class="text-center">
+                                <p class="font-medium text-lg text-gold">- Javier M., CEO</p>
+                                <p class="text-sm text-dark-text/70">Evento Corporativo VIP, 2024</p>
+                            </div>
+                        </div>
+
+                        <!-- Testimonio 3 -->
+                        <div class="carousel-slide p-10 bg-light-grey/50">
+                            <svg class="w-8 h-8 text-gold mx-auto mb-4 opacity-70" fill="currentColor" viewBox="0 0 24 24"><path d="M13.25 21.5c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9zm0-16c-3.86 0-7 3.14-7 7s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zM11 15h2V9h-2v6zm4 0h2V9h-2v6z"/></svg>
+                            <p class="font-display text-2xl md:text-3xl italic text-dark-text/90 leading-relaxed mb-6">
+                                "Cada detalle, desde la iluminación hasta el diseño floral, fue sublime. No tuvimos que preocuparnos por nada, solo por disfrutar. Un servicio realmente exclusivo."
+                            </p>
+                            <div class="text-center">
+                                <p class="font-medium text-lg text-gold">- Sofía P. y Ricardo G.</p>
+                                <p class="text-sm text-dark-text/70">Aniversario de Plata, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indicadores de Slide (Dots) -->
+                <div id="testimonial-dots" class="mt-6 flex justify-center space-x-2">
+                    <button class="w-3 h-3 bg-gold rounded-full opacity-50 hover:opacity-100 transition duration-300" data-slide="0"></button>
+                    <button class="w-3 h-3 bg-dark-text rounded-full opacity-50 hover:opacity-100 transition duration-300" data-slide="1"></button>
+                    <button class="w-3 h-3 bg-dark-text rounded-full opacity-50 hover:opacity-100 transition duration-300" data-slide="2"></button>
+                </div>
+            </div>
+        </section>
+
+   <!-- 9. Cierre / CTA Final (Responsive) -->
+<section id="contact" class="py-28 md:py-40 bg-white relative overflow-hidden">
+    
+    <!-- Fondo sutil de lujo -->
+    <div class="absolute inset-0 opacity-[0.06] bg-[url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1470&q=80')] bg-cover bg-center"></div>
+    
+    <div class="relative max-w-4xl mx-auto px-6 lg:px-8 text-center" data-aos="fade-up">
+        
+        <span class="text-gold font-medium tracking-widest text-sm uppercase">Excelencia sin compromisos</span>
+
+        <h2 class="font-display text-3xl md:text-5xl mt-3 mb-6 font-light leading-snug">
+            Cada detalle refleja <span class="luxury-gradient-text font-medium">tu nivel</span>.
+        </h2>
+
+        <p class="text-base md:text-xl text-dark-text/70 max-w-2xl mx-auto mb-10">
+            Más que eventos: diseñamos experiencias memorables para personas y marcas que buscan calidad, dedicación y un toque de distinción en cada momento.
+        </p>
+
+        <!-- Tres pilares -->
+        <div class="grid md:grid-cols-3 gap-8 mt-12 mb-14" data-aos="fade-up" data-aos-delay="150">
+
+            <div class="p-6 bg-white/60 rounded-2xl shadow-xl border border-gold/40 backdrop-blur-md">
+                <h3 class="text-lg font-semibold text-dark-text mb-2">Producción Integral</h3>
+                <p class="text-dark-text/70 text-sm">Coordinación total del evento, desde la planificación hasta la ejecución.</p>
+            </div>
+
+            <div class="p-6 bg-white/60 rounded-2xl shadow-xl border border-gold/40 backdrop-blur-md">
+                <h3 class="text-lg font-semibold text-dark-text mb-2">Diseño Exclusivo</h3>
+                <p class="text-dark-text/70 text-sm">Estética premium, ambientación y experiencias pensadas para tu estilo.</p>
+            </div>
+
+            <div class="p-6 bg-white/60 rounded-2xl shadow-xl border border-gold/40 backdrop-blur-md">
+                <h3 class="text-lg font-semibold text-dark-text mb-2">Atención Personalizada</h3>
+                <p class="text-dark-text/70 text-sm">Un equipo dedicado a garantizar que cada detalle supere tus expectativas.</p>
+            </div>
+
+        </div>
+
+        <!-- CTA Final -->
+        <h3 class="font-display text-2xl md:text-3xl font-light text-dark-text mb-6" data-aos="fade-up" data-aos-delay="200">
+            ¿Listo para llevar tu evento al siguiente nivel?
+        </h3>
+
+        <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-6 mt-4" data-aos="fade-up" data-aos-delay="250">
+
+            <a href="https://wa.me/5492235476051" target="_blank"
+                class="flex items-center justify-center py-3 px-6 border border-gold text-dark-text rounded-full hover:bg-gold hover:text-white transition duration-300">
+                WhatsApp Directo
+            </a>
+
+            <a href="mailto:info@businessclass.com"
+                class="flex items-center justify-center py-3 px-6 border border-gold text-dark-text rounded-full hover:bg-gold hover:text-white transition duration-300">
+               businessclass@contacto.com
+            </a>
+
+        </div>
+
+    </div>
+</section>
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/5492235476051" 
+   target="_blank" 
+   class="whatsapp-float" 
+   aria-label="Chat en WhatsApp">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
+         alt="WhatsApp" 
+         class="w-full h-full">
+</a>
+
+<style>
+.whatsapp-float {
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    width: 64px;
+    height: 64px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    z-index: 9999;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+}
+</style>
+
+    </main>
+
+    <!-- 10. Pie de Página Minimalista -->
+    <footer class="bg-dark-text py-10 border-t border-gold/50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+            <div class="font-display text-xl font-semibold luxury-gradient-text tracking-widest mb-4">
+                BUSINESS CLASS
+            </div>
+
+            <p class="text-sm text-white/60">
+                &copy; 2025 Business Class. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Script de Inicialización -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Función para mostrar mensajes temporales (reemplaza alert/confirm)
+        function showTempMessage(text, bgColorClass) {
+            const tempMessage = document.createElement('div');
+            tempMessage.textContent = text;
+            tempMessage.className = `fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${bgColorClass} text-white p-4 rounded-lg shadow-2xl z-50 transition-opacity opacity-100 font-medium text-lg`;
+            document.body.appendChild(tempMessage);
+            setTimeout(() => {
+                tempMessage.classList.add('opacity-0');
+                setTimeout(() => tempMessage.remove(), 500);
+            }, 2500); // Muestra el mensaje por 2.5 segundos
+        }
+
+        // --- Inicialización de la Página y Componentes ---
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 1200, 
+                once: true,     
+                easing: 'ease-in-out',
+                delay: 50,
+            });
+            
+            // Ocultar el loader
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.classList.add('opacity-0');
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                }, 1000); 
+            }, 500);
+
+            initMobileSidebar();
+            initTestimonialCarousel();
+            initGalleryLightboxMock();
+        });
+
+        // --- Lógica del Sidebar Móvil ---
+        function initMobileSidebar() {
+            const body = document.body;
+            const menuButton = document.getElementById('menu-button');
+            const mobileSidebar = document.getElementById('mobile-sidebar');
+            const menuOverlay = document.getElementById('menu-overlay');
+            const hamburgerIcon = document.getElementById('hamburger-icon');
+            const closeIcon = document.getElementById('close-icon');
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+            function toggleSidebar() {
+                const isMenuOpen = mobileSidebar.classList.contains('translate-x-0');
+
+                if (isMenuOpen) {
+                    mobileSidebar.classList.remove('translate-x-0');
+                    mobileSidebar.classList.add('translate-x-full');
+                    menuOverlay.classList.remove('opacity-100');
+                    menuOverlay.classList.add('opacity-0');
+                    setTimeout(() => menuOverlay.classList.add('hidden'), 500); // Esconde después de la transición
+                    body.classList.remove('no-scroll');
+                    hamburgerIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                } else {
+                    mobileSidebar.classList.remove('translate-x-full');
+                    mobileSidebar.classList.add('translate-x-0');
+                    menuOverlay.classList.remove('hidden');
+                    setTimeout(() => menuOverlay.classList.add('opacity-100'), 10); 
+                    body.classList.add('no-scroll');
+                    hamburgerIcon.classList.add('hidden');
+                    closeIcon.classList.remove('hidden');
+                }
+            }
+
+            menuButton.addEventListener('click', toggleSidebar);
+            menuOverlay.addEventListener('click', toggleSidebar);
+
+            // Cerrar menú al hacer clic en un enlace de navegación
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    setTimeout(toggleSidebar, 100); 
+                });
+            });
+        }
+        
+        // --- Lógica del Carrusel de Testimonios ---
+        function initTestimonialCarousel() {
+            const track = document.getElementById('testimonial-track');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dotsContainer = document.getElementById('testimonial-dots');
+            let currentIndex = 0;
+            const slideInterval = 5000; // 5 segundos
+
+            if (!track || slides.length === 0) return;
+
+            function updateCarousel() {
+                // Mueve el track
+                const offset = -currentIndex * 100;
+                track.style.transform = `translateX(${offset}%)`;
+
+                // Actualiza los puntos (dots)
+                dotsContainer.querySelectorAll('button').forEach((dot, index) => {
+                    if (index === currentIndex) {
+                        dot.classList.remove('bg-dark-text');
+                        dot.classList.add('bg-gold');
+                    } else {
+                        dot.classList.remove('bg-gold');
+                        dot.classList.add('bg-dark-text');
+                    }
+                });
+            }
+
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % slides.length;
+                updateCarousel();
+            }
+
+            // Configurar evento de click para los puntos
+            dotsContainer.querySelectorAll('button').forEach(dot => {
+                dot.addEventListener('click', (e) => {
+                    clearInterval(autoSlide); // Detiene el auto-slide
+                    currentIndex = parseInt(e.target.getAttribute('data-slide'));
+                    updateCarousel();
+                    // Reinicia el auto-slide
+                    autoSlide = setInterval(nextSlide, slideInterval); 
+                });
+            });
+
+            // Iniciar carrusel automático
+            let autoSlide = setInterval(nextSlide, slideInterval); 
+            updateCarousel(); // Inicializa la vista en el primer slide
+        }
+
+    
+    </script>
+    <script>
+document.querySelectorAll(".gallery-item img").forEach(img => {
+    img.addEventListener("click", () => {
+        document.getElementById("lightbox-img").src = img.src;
+        document.getElementById("lightbox").classList.remove("hidden");
+    });
+});
+
+document.getElementById("lightbox").addEventListener("click", () => {
+    document.getElementById("lightbox").classList.add("hidden");
+});
+</script>
+
+</body>
+</html>

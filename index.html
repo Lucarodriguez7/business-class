@@ -32,68 +32,62 @@
     </script>
     
     <style>
-        /* Estilos personalizados */
-        body {
-            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ccircle cx='6' cy='6' r='2' fill='%23D4AF37'/%3E%3C/svg%3E") 6 6, auto;
-            overflow-x: hidden;
-            scroll-behavior: smooth; /* Scroll fluido */
-        }
-        
-        /* Opcional: Estilo de scrollbar sutil */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #D4AF3744;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f7f7f7;
-        }
-
-        /* Estilo para el hover de las tarjetas de servicio */
-        .service-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
-        }
-        
-        /* Estilo para texto de lujo con gradiente dorado */
-        .luxury-gradient-text {
-            background: linear-gradient(45deg, #D4AF37, #E9C96E, #D4AF37);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-fill-color: transparent;
-        }
-
-        /* Oculta el scroll del cuerpo cuando el menú móvil está abierto para evitar el desplazamiento de fondo */
-        .no-scroll {
-            overflow: hidden;
-        }
-
-        /* Estilos del Carrusel de Testimonios */
-        .carousel-track {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .carousel-slide {
-            flex: 0 0 100%; /* Cada slide ocupa el 100% del contenedor */
-            min-width: 100%; /* Asegura que no se deforme */
-        }
-
-</style>
-<style>
+    /* Estilos personalizados */
     body {
-        overflow-x: hidden;
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ccircle cx='6' cy='6' r='2' fill='%23D4AF37'/%3E%3C/svg%3E") 6 6, auto;
+        overflow-x: hidden; /* SOLO UNA VEZ */
+        scroll-behavior: smooth;
+    }
+    
+    /* Scrollbar sutil */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #D4AF3744;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #f7f7f7;
+    }
+
+    /* Hover de tarjetas */
+    .service-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+    }
+    
+    /* Texto dorado */
+    .luxury-gradient-text {
+        background: linear-gradient(45deg, #D4AF37, #E9C96E, #D4AF37);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Desactivar scroll cuando el menú móvil esté abierto */
+    .no-scroll {
+        overflow: hidden;
+    }
+
+    /* Carrusel */
+    .carousel-track {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+    .carousel-slide {
+        flex: 0 0 100%;
+        min-width: 100%;
     }
 </style>
+
+
 </head>
-<html style="overflow-x: hidden;">
-<body style="overflow-x: hidden;">
-<body class="overflow-x-hidden">
+<body class="overflow-x-hidden font-sans bg-white text-dark-text antialiased selection:bg-gold/20 selection:text-dark-text">
+
 
 <!-- Loader Inicial (Responsive) -->
 <div id="loader" 

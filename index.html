@@ -564,18 +564,11 @@ document.getElementById("contact-form").addEventListener("submit", function (e) 
 <style>
 .whatsapp-float {
     position: fixed;
-    bottom: 22px;
-    right: 22px;
-    width: 64px;
-    height: 64px;
-    background: #25D366;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    z-index: 9999;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    bottom: 20px;
+    left: 20px;   /* Antes estaba right: 20px */
+    width: 60px;
+    height: 60px;
+    z-index: 999;
 }
 
 .whatsapp-float:hover {

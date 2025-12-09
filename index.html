@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Business Class | Eventos Corporativos Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              gold: {
+                light: '#FDFBF7',
+                DEFAULT: '#D4AF37',
+                dark: '#AA8C2C',
+                deep: '#8A7020',
+              },
+              slate: {
+                850: '#1e293b',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              heading: ['Montserrat', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #ffffff;
+        color: #333;
+        overflow-x: hidden;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', sans-serif;
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #D4AF37;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #AA8C2C;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+ <a 
+  href="https://wa.me/5492235476051?text=Hola,%20estoy%20interesado%20en%20un%20evento" 
+  target="_blank" 
+  class="whatsapp-float"
+>
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 32 32" 
+    class="whatsapp-icon"
+  >
+    <path fill="#ffffff" d="M16.01 3C9.38 3 4 8.38 4 15.01c0 2.64.86 5.08 2.31 7.06L4 29l7.17-2.27c1.9 1.04 4.09 1.63 6.41 1.63 6.63 0 12.01-5.38 12.01-12.01S22.64 3 16.01 3zm0 21.78c-2.11 0-4.09-.63-5.74-1.72l-.41-.26-4.25 1.35 1.38-4.14-.27-.43c-1.11-1.72-1.76-3.76-1.76-5.9 0-6.05 4.92-10.97 10.97-10.97s10.97 4.92 10.97 10.97-4.92 10.97-10.97 10.97zm5.79-8.25c-.32-.16-1.89-.93-2.18-1.03-.29-.11-.5-.16-.71.16-.21.32-.82 1.03-1 1.24-.18.21-.37.24-.69.08-.32-.16-1.35-.5-2.57-1.6-.95-.85-1.6-1.9-1.79-2.22-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.55.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.55-.08-.16-.71-1.71-.97-2.34-.25-.6-.51-.52-.71-.53-.18-.01-.4-.01-.61-.01-.21 0-.55.08-.84.4-.29.32-1.1 1.08-1.1 2.63s1.12 3.05 1.28 3.26c.16.21 2.2 3.35 5.32 4.7.74.32 1.31.51 1.76.65.74.24 1.41.21 1.94.13.59-.09 1.89-.77 2.16-1.51.27-.75.27-1.39.19-1.51-.08-.13-.29-.21-.61-.37z"/>
+  </svg>
+</a>
+
+
+<style>
+.whatsapp-float {
+  position: fixed;
+  width: 70px;
+  height: 70px;
+  bottom: 25px;
+  right: 25px;
+  background: linear-gradient(135deg, #d4af37, #b68a24); /* Dorado elegante */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  z-index: 999;
+  text-decoration: none;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.12);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.45);
+}
+
+.whatsapp-icon {
+  width: 34px;
+  height: 34px;
+  filter: brightness(1000%); /* Asegura que quede BIEN blanco */
+}
+
+
+</style>
+</body>
+</html>
